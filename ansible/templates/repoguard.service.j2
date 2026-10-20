@@ -8,3 +8,6 @@ User={{ repo_guard_user }}
 Group={{ repo_guard_user }}
 WorkingDirectory={{ repo_guard_repository }}
 ExecStart=/usr/bin/java -jar {{ repo_guard_home }}/repoguard.jar --scan {{ repo_guard_repository }}
+
+[Install]
+WantedBy=multi-user.target

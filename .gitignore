@@ -1,5 +1,6 @@
 # Maven outputs, IDE files, and local deployment inventory
 /target/
+/tmp/
 /.idea/
 *.iml
 ansible/inventory.ini

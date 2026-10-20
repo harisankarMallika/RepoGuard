@@ -30,7 +30,7 @@ Copy `ansible/inventory.ini.example` to a private `inventory.ini`, add reachable
 
 ```bash
 mvn clean package
-ansible-playbook -i ansible/inventory.ini ansible/deploy.yml -e repo_guard_jar=target/repoguard-1.0.0.jar
+ansible-playbook -i ansible/inventory.ini ansible/deploy.yml -e repo_guard_jar="$(pwd)/target/repoguard-1.0.0.jar"
 ansible -i ansible/inventory.ini repoguard -b -m command -a 'systemctl status repoguard.service'
 ansible -i ansible/inventory.ini repoguard -b -m command -a 'journalctl -u repoguard.service -n 50 --no-pager'
 ```

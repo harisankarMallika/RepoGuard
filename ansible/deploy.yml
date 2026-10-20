@@ -6,10 +6,11 @@
     repo_guard_home: /opt/repoguard
     repo_guard_repository: /srv/application
     repo_guard_jar: ../target/repoguard-1.0.0.jar
+    repo_guard_java_package: "{{ 'openjdk-17-jre-headless' if ansible_facts.os_family == 'Debian' else 'java-17-openjdk-headless' }}"
   tasks:
     - name: Ensure Java runtime is installed
       ansible.builtin.package:
-        name: openjdk-17-jre-headless
+        name: "{{ repo_guard_java_package }}"
         state: present
     - name: Create application directory
       ansible.builtin.file:
