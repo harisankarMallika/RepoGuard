@@ -18,7 +18,7 @@ Run `scripts/install-hook.ps1 -RepositoryPath C:\path\to\repo` on Windows or `ba
 
 ## Jenkins
 
-Create a Pipeline job pointing at this repository's `Jenkinsfile`. Enable the GitHub hook trigger in the job and configure a reachable GitHub webhook to `https://<jenkins-host>/github-webhook/` for immediate push builds. The Jenkinsfile also polls the SCM every five minutes (`H/5 * * * *`), so changes are detected when a webhook cannot reach the controller. Configure JDK 25 as `Java25` and Maven 3 as `Maven` under Jenkins Tools.
+The configured Jenkins Pipeline job checks this repository's `main` branch and runs `mvn -B clean verify`, archives the JAR, publishes JUnit results, and scans the workspace. It polls SCM every five minutes (`H/5 * * * *`). The GitHub hook trigger is enabled, but this workstation's Jenkins is local, so no public GitHub webhook is configured; pushes are detected by polling. Configure a reachable Jenkins webhook endpoint only when deploying Jenkins on an externally reachable host. Jenkins tools are JDK 25 (`Java25`) and Maven 3 (`Maven`).
 
 ## Ansible deployment
 
