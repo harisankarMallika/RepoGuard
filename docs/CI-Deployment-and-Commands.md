@@ -23,7 +23,7 @@ If `origin` already exists, use `git remote set-url origin https://github.com/ha
 3. The `RepoGuard` job is a Pipeline from SCM: repository `https://github.com/harisankarMallika/RepoGuard.git`, branch `*/main`, script path `Jenkinsfile`, lightweight checkout enabled, no credentials required for this public repository.
 4. The job has both `GitHub hook trigger for GITScm polling` and `Poll SCM` enabled. Its poll schedule is `H/5 * * * *`; the Jenkinsfile also declares `pollSCM('H/5 * * * *')`.
 5. No public GitHub webhook is configured because this controller is local-only. SCM polling detects pushes within about five minutes. For immediate webhook builds, host Jenkins at a secured, publicly reachable HTTPS address and configure the repository webhook at `/github-webhook/` for push events.
-6. Jenkins build #4 succeeded on commit `2ca9e1d`: Maven clean verify passed all 3 tests, the scanner returned no findings, and `target/repoguard-1.0.0.jar` was archived. The initial setup build failed before the Java tool name was aligned; the corrected builds passed.
+6. Jenkins build #5 automatically detected commit `5464184` at the five-minute SCM poll and succeeded: Maven clean verify passed all 3 tests, the scanner returned no findings, and `target/repoguard-1.0.0.jar` was archived. The initial setup build failed before the Java tool name was aligned; the corrected builds passed.
 7. The job runs Maven verify, archives the JAR and publishes JUnit results. The final smoke scan marks credential findings unstable.
 
 ## Ansible deployment
