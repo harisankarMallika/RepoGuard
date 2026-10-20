@@ -1,0 +1,45 @@
+- name: Deploy RepoGuard scanner
+  hosts: repoguard
+  become: true
+  vars:
+    repo_guard_user: deploy
+    repo_guard_home: /opt/repoguard
+    repo_guard_repository: /srv/application
+    repo_guard_jar: ../target/repoguard-1.0.0.jar
+  tasks:
+    - name: Ensure Java runtime is installed
+      ansible.builtin.package:
+        name: openjdk-17-jre-headless
+        state: present
+    - name: Create application directory
+      ansible.builtin.file:
+        path: "{{ repo_guard_home }}"
+        state: directory
+        owner: "{{ repo_guard_user }}"
+        group: "{{ repo_guard_user }}"
+        mode: '0750'
+    - name: Install executable jar
+      ansible.builtin.copy:
+        src: "{{ repo_guard_jar }}"
+        dest: "{{ repo_guard_home }}/repoguard.jar"
+        owner: "{{ repo_guard_user }}"
+        group: "{{ repo_guard_user }}"
+        mode: '0640'
+    - name: Install systemd scanner service
+      ansible.builtin.template:
+        src: templates/repoguard.service.j2
+        dest: /etc/systemd/system/repoguard.service
+        mode: '0644'
+      notify: Restart RepoGuard
+    - name: Enable and start RepoGuard
+      ansible.builtin.systemd:
+        name: repoguard.service
+        enabled: true
+        state: started
+        daemon_reload: true
+  handlers:
+    - name: Restart RepoGuard
+      ansible.builtin.systemd:
+        name: repoguard.service
+        state: restarted
+        daemon_reload: true

@@ -1,0 +1,7 @@
+[repoguard]
+# Replace with your managed Linux target hosts.
+server1 ansible_host=192.0.2.10 ansible_user=deploy
+
+[repoguard:vars]
+repo_guard_user=deploy
+repo_guard_repository=/srv/application
