@@ -18,7 +18,7 @@ Run `scripts/install-hook.ps1 -RepositoryPath C:\path\to\repo` on Windows or `ba
 
 ## Jenkins
 
-Create a Pipeline job pointing at this repository's `Jenkinsfile`. Configure a GitHub webhook to `https://<jenkins-host>/github-webhook/` for push events and enable the GitHub hook trigger in the job. The Jenkinsfile also polls the SCM every five minutes (`H/5 * * * *`) as a fallback. Provide a Java 17+ and Maven 3 installation named `Maven` or adjust the pipeline tools section.
+Create a Pipeline job pointing at this repository's `Jenkinsfile`. Enable the GitHub hook trigger in the job and configure a reachable GitHub webhook to `https://<jenkins-host>/github-webhook/` for immediate push builds. The Jenkinsfile also polls the SCM every five minutes (`H/5 * * * *`), so changes are detected when a webhook cannot reach the controller. Configure JDK 25 as `Java25` and Maven 3 as `Maven` under Jenkins Tools.
 
 ## Ansible deployment
 

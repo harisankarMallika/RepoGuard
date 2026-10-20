@@ -19,7 +19,7 @@ If `origin` already exists, use `git remote set-url origin https://github.com/ha
 
 ## Jenkins configuration
 1. Install Jenkins, Git, JDK 17+, Pipeline, GitHub Integration and JUnit plugins.
-2. Add Jenkins tools called `Java17` (JDK 17+) and `Maven` (Maven 3.9+), matching `Jenkinsfile`.
+2. Add Jenkins tools called `Java25` (JDK 25) and `Maven` (Maven 3.9+), matching `Jenkinsfile`. Java 25 runs the current Jenkins controller and also compiles this Java 17-targeted project.
 3. Create a Pipeline job with SCM source `https://github.com/harisankarMallika/RepoGuard.git`, branch `*/main`, and script path `Jenkinsfile`.
 4. Enable the GitHub hook trigger. Set the GitHub repository webhook to `https://<jenkins-host>/github-webhook/`, content type `application/json`, push events.
 5. `githubPush()` runs the job on pushed commits. `pollSCM('H/5 * * * *')` checks for missed changes about every five minutes.

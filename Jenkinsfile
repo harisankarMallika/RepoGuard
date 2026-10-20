@@ -5,7 +5,7 @@ pipeline {
     pollSCM('H/5 * * * *')
   }
   tools {
-    jdk 'Java17'
+    jdk 'Java25'
     maven 'Maven'
   }
   options { timestamps(); disableConcurrentBuilds() }
